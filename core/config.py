@@ -15,5 +15,6 @@ class Settings:
     POOL_TIMEOUT: int = int(os.getenv("POOL_TIMEOUT"))
     POOL_RECYCLE: int = int(os.getenv("POOL_RECYCLE"))
     MAX_OVERFLOW: int = int(os.getenv("MAX_OVERFLOW"))
+    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY")
     
 settings = Settings()
