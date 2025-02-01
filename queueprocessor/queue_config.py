@@ -1,9 +1,10 @@
 import pika
 from typing import Optional
+from core.config import settings
 
 class QueueManager:
     def __init__(self, queue_name: str, max_priority: int = 10, 
-                 rabbitmq_url: str = "amqps://emfkgxyq:qxdAqhKCwAJtyQyZU8WzwAUOCfgrpXmg@possum.lmq.cloudamqp.com/emfkgxyq"):
+                 rabbitmq_url: str = settings.AMPQ_URL):
         self.queue_name = queue_name
         self.max_priority = max_priority
         self.connection_params = pika.URLParameters(rabbitmq_url)
