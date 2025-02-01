@@ -19,7 +19,7 @@ class Auth(UserProcessor):
         self.db = db
         
     async def signin(self, data: models.User):
-        user = self.get_user(filterby = "email",value = data.email)
+        user = await self.get_user(filterby = "email",value = data.email)
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
         if not self.helper.verify_password(data.password, user.password):
@@ -47,7 +47,7 @@ class Auth(UserProcessor):
         return authToken, refreshToken
     
     async def refresh_token(self, token):
-        user = self.get_user(filterby="id", value=token["id"])
+        user = await self.get_user(filterby="id", value=token["id"])
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
         authToken, refreshToken = self.create_tokens(user)

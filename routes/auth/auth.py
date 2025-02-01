@@ -5,6 +5,7 @@ from db.session import get_db
 import db.models as models
 import db.schemas.userSchema as userSchema
 from classes.authentication import Auth, decode
+from queueprocessor.publisher import MPQPublisher
 
 router = APIRouter(prefix= "/colab/v2/auth", tags=["Auth"])
 
@@ -15,6 +16,8 @@ async def auth_call(
     db: Session = Depends(get_db)
 ):
     auth = Auth(db)
+    publisher = MPQPublisher(queue_name="task_queue", max_priority=10)
+    publisher.publish(message=data.email, priority=1)
     return await auth.signin(data)
 
 @router.post("/token-refresh/")

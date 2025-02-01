@@ -16,5 +16,6 @@ class Settings:
     POOL_RECYCLE: int = int(os.getenv("POOL_RECYCLE"))
     MAX_OVERFLOW: int = int(os.getenv("MAX_OVERFLOW"))
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY")
+    AMPQ_URL: str = os.getenv("AMPQ_URL")
     
 settings = Settings()
