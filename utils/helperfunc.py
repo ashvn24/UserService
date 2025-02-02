@@ -1,5 +1,6 @@
-
+import re
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import HTTPException
 from passlib.context import CryptContext
 
 class Helper:
@@ -16,6 +17,12 @@ class Helper:
     def userdata(self):
         return ['two-factor', 'updated_at', 'password', 'otp', 'created_at']
     
+    @staticmethod
+    def email_validator(email):
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(pattern, email):
+            raise HTTPException(status_code=400, detail= "Invalid email")
+        
     @staticmethod
     def validator(data):
         data = data.model_dump()
